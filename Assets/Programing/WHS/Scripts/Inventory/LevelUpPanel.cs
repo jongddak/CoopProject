@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -163,7 +163,7 @@ public class LevelUpPanel : UIBInder
 
         for (int i = 0; i < level; i++)
         {
-            int curLevel = targetCharacter.UnitLevel + i;
+            int curLevel = targetCharacter.UnitLevel + i+1;
             int levelUpId = FindLevelUpId(rarity, curLevel);
 
             if (curLevel > MAXLEVEL)
