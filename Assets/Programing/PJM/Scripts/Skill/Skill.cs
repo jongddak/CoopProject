@@ -48,6 +48,9 @@ public abstract class Skill : ScriptableObject
         }
     }
     
+    /*[SerializeField] protected LayerMask _targetLayer;
+    public LayerMask TargetLayer {get => _targetLayer; protected set => _targetLayer = value; }*/
+
     [SerializeField] private Sprite _skillIcon;
     public Sprite SkillIcon {get => _skillIcon;set => _skillIcon = value; }
     
@@ -60,8 +63,20 @@ public abstract class Skill : ScriptableObject
     [SerializeField] private GameObject _vfxToMuzzle;
     public GameObject VFXToMuzzle {get => _vfxToMuzzle;}
 
-    [SerializeField] protected SkillParameter skillParameterNumber;
-    public SkillParameter SkillParameterNumber {get => skillParameterNumber;}
+
+    /*protected Transform skillTarget; // 여기 있어도 괜찮나? 계속 바뀔텐데 데이터 컨테이너에 있을 얘가 아닌가?
+    public Transform SkillTarget { get => skillTarget; protected set => skillTarget = value; }*/
+    //protected List<Transform> skillTargets;
+    //public List<Transform> SkillTargets { get => skillTargets; protected set => skillTargets = value; }
+
+    // 거리 체크
+    /*protected virtual bool CheckRange(Transform caster, Transform target)
+    {
+        if (target == null)
+            return false;
+        float sqrDistance = (target.position - caster.position).sqrMagnitude;
+        return sqrDistance <= skillRange * skillRange;
+    }*/
 
     // 타겟 설정
     public abstract BaseNode.ENodeState SetTargets(BaseUnitController caster, List<BaseUnitController> targets);
@@ -134,7 +149,7 @@ public abstract class Skill : ScriptableObject
     {
         if(effectPrefab == null)
             return;
-        // localScale 방향 조정 필요
+        
         GameObject particleObject = Instantiate(effectPrefab, targetTransform.position, Quaternion.identity);
         if (particleObject == null)
             return;
@@ -148,19 +163,8 @@ public abstract class Skill : ScriptableObject
             Destroy(particleObject);
         }
     }
+    
 
-
-    protected bool GetBoolSkillParameter(BaseUnitController caster)
-    {
-        int skillParameterHash = caster.UnitViewer.SkillParameterHash[(int)SkillParameterNumber];
-        return caster.UnitViewer.UnitAnimator.GetBool(skillParameterHash);
-    }
-
-    protected void SetBoolSkillParameter(BaseUnitController caster,bool value)
-    {
-        int skillParameterHash = caster.UnitViewer.SkillParameterHash[(int)SkillParameterNumber];
-        caster.UnitViewer.UnitAnimator.SetBool(skillParameterHash, value);
-    }
 
     private bool CheckRemainingTime()
     {

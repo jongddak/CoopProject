@@ -22,8 +22,7 @@ MonoBehaviour:
   crowdControl: 0
   ccDuration: 0
   _skillIcon: {fileID: 21300000, guid: 46e68dae4b70fdd4a8e23d45a0b25976, type: 3}
-  _vfxToTarget: {fileID: 1742315590603973035, guid: 4c81cc758d1bfff4a9e1b6e14b08c3d8, type: 3}
+  _vfxToTarget: {fileID: 7485119826907495141, guid: adf454583a6fc4a4c97db27e37ca89eb, type: 3}
   _vfxToMine: {fileID: 7485119826907495141, guid: f28043fa17329574c94cfb30063f6682, type: 3}
   _vfxToMuzzle: {fileID: 0}
-  skillParameter: 0
   distance: 2

@@ -10,10 +10,10 @@ public class RaidBossUnitController : EnemyBaseUnitController
     
     private int _skillIndex;
     
-    /*[SerializeField] private Skill _bossSkill0;
+    [SerializeField] private Skill _bossSkill0;
     protected Skill BossSkill0 => _bossSkill0;
     [SerializeField] private Skill _bossSkill1;
-    protected Skill BossSkill1 => _bossSkill1;*/
+    protected Skill BossSkill1 => _bossSkill1;
     private List<BaseUnitController> _skillTargets;
     protected List<BaseUnitController> SkillTargets { get => _skillTargets; set => _skillTargets = value; }
     //[SerializeField] private Transform _muzzlePoint;
@@ -25,10 +25,10 @@ public class RaidBossUnitController : EnemyBaseUnitController
     public BossSkillRuntimeData SkillRuntimeData { get => _skillRuntimeData; set => _skillRuntimeData = value; }
 
     // 더 많으면 배열 혹은 리스트로
-    /*private bool _isSkill0Running;
+    private bool _isSkill0Running;
     public bool IsSkill0Running { get => _isSkill0Running; set => _isSkill0Running = value; }
     private bool _isSkill1Running;
-    public bool IsSkill1Running { get => _isSkill1Running; set => _isSkill1Running = value; }*/
+    public bool IsSkill1Running { get => _isSkill1Running; set => _isSkill1Running = value; }
     
     public Skill curSkill { get; private set; }
     

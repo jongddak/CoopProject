@@ -8,11 +8,6 @@ public enum Parameter
     Idle, Run ,Attack, Skill0, Skill1, Win ,Die, Size
 }
 
-public enum SkillParameter
-{
-    Skill0, Skill1, Skill2, Size
-}
-
 public class UnitView : MonoBehaviour
 {
 
@@ -21,9 +16,9 @@ public class UnitView : MonoBehaviour
     public Animator UnitAnimator { get => _unitAnimator;}
 
     private int[] _parameterHash;
+
     public int[] ParameterHash { get => _parameterHash; private set => _parameterHash = value; }
-    private int[] _skillParameterHash;
-    public int[] SkillParameterHash { get => _skillParameterHash; private set => _skillParameterHash = value; }
+    //public AnimatorStateInfo stateInfo;
 
     private int[] _animationHash = new int[]
     {
@@ -43,18 +38,6 @@ public class UnitView : MonoBehaviour
         ParameterHash[(int)Parameter.Skill1] = Animator.StringToHash("Skill1");
         ParameterHash[(int)Parameter.Win] = Animator.StringToHash("Win");
         ParameterHash[(int)Parameter.Die] = Animator.StringToHash("Die");
-        
-        // 이건 반복문으로 묶을 수 있을거같다
-        
-        SkillParameterHash = new int[(int)SkillParameter.Size];
-        for (int i = 0; i < SkillParameterHash.Length; i++)
-        {
-            SkillParameterHash[i] = Animator.StringToHash($"Skill{i}");
-        }
-        /*SkillParameterHash[(int)SkillParameter.Skill0] = Animator.StringToHash("Skill0");
-        SkillParameterHash[(int)SkillParameter.Skill1] = Animator.StringToHash("Skill1");
-        SkillParameterHash[(int)SkillParameter.Skill2] = Animator.StringToHash("Skill2");*/
-        
     }
 
     private void Start()

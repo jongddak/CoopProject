@@ -1,4 +1,4 @@
-
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,25 +45,24 @@ public override BaseNode.ENodeState Perform(BaseUnitController caster, List<Base
             return BaseNode.ENodeState.Failure;
         }
         
-        int skillParameterHash = raidBossCaster.UnitViewer.SkillParameterHash[(int)SkillParameterNumber];
         raidBossCaster.UnitViewer.UnitAnimator.SetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Run], false);
         
         // 스킬 시전 시작
         //if (!caster.IsSkillRunning)
-        //if(!raidBossCaster.UnitViewer.UnitAnimator.GetBool(skillParameterHash))
-        if(!GetBoolSkillParameter(raidBossCaster))
+        if(!raidBossCaster.UnitViewer.UnitAnimator.GetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Skill0]))
         {
             //raidBossCaster.CurSkill = this;
-            //raidBossCaster.IsSkill0Running = true; // Need Fix 
-            //raidBossCaster.UnitViewer.UnitAnimator.SetBool(skillParameterHash, true);
-            SetBoolSkillParameter(raidBossCaster, true);
+            raidBossCaster.IsSkill0Running = true; // Need Fix 
+            raidBossCaster.UnitViewer.UnitAnimator.SetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Skill0], true);
             Debug.Log($" {raidBossCaster.gameObject.name} 스킬 시전");
             raidBossCaster.CoolTimeCounter = Cooltime;
             raidBossCaster.IsSkillRunning = true;
             return BaseNode.ENodeState.Running;
         }
         
+        
         var stateInfo = raidBossCaster.UnitViewer.UnitAnimator.GetCurrentAnimatorStateInfo(0);
+        //if (stateInfo.IsName("UsingSkill"))
         {
             if (stateInfo.normalizedTime < 1.0f)
             {
@@ -75,8 +74,8 @@ public override BaseNode.ENodeState Perform(BaseUnitController caster, List<Base
                 {
                     Debug.Log($"{raidBossCaster.gameObject.name} : '{SkillName}' 사용 완료.");
                     
-                    //raidBossCaster.UnitViewer.UnitAnimator.SetBool(skillParameterHash, false);
-                    SetBoolSkillParameter(raidBossCaster, false);
+                    raidBossCaster.UnitViewer.UnitAnimator.SetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Skill0],
+                        false);
                     raidBossCaster.IsSkillRunning = false;
 
                     OverlapAreaAllWithAngle(raidBossCaster, targets);
@@ -98,7 +97,7 @@ public override BaseNode.ENodeState Perform(BaseUnitController caster, List<Base
                     }
 
                     //raidBossCaster.CurSkill = null;
-                    //raidBossCaster.IsSkill0Running = false; // Need Fix 
+                    raidBossCaster.IsSkill0Running = false; // Need Fix 
                     return BaseNode.ENodeState.Success;
                     
                 }
@@ -106,4 +105,28 @@ public override BaseNode.ENodeState Perform(BaseUnitController caster, List<Base
         }
         return BaseNode.ENodeState.Failure;
     }
+
+    /*protected void OverlapAreaAllWithAngle(BaseUnitController caster, List<BaseUnitController> targets)
+    {
+        Vector2 dir =  caster.gameObject.transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(caster.CenterPosition.position, SkillRange, targetLayer);
+        foreach (var col in hitColliders)
+        {
+            if(col == null)
+                continue;
+            BaseUnitController target = col.GetComponentInParent<BaseUnitController>();
+            if(target == null)
+                continue;
+            
+            Vector2 dirToCol = (col.transform.position - caster.CenterPosition.position).normalized;
+            //float dot = Vector2.Dot(dir, dirToCol);
+            float angle = Vector2.Angle(dir, dirToCol);
+            
+            
+            if (angle <= areaAngle * 0.5f) // 위 아래 부채꼴 모양
+            {
+                targets.Add(target);
+            }
+        }
+    }*/
 }

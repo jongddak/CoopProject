@@ -134,17 +134,16 @@ public class BossLaserSkill : Skill
         }
 
         var stateInfo = raidBossCaster.UnitViewer.UnitAnimator.GetCurrentAnimatorStateInfo(0);
-       //int skillParameterHash = raidBossCaster.UnitViewer.SkillParameterHash[(int)SkillParameterNumber];
+
         
         switch (raidBossCaster.CurSkillState)
         {
             case SkillState.None:
             {   
                 //raidBossCaster.CurSkill = this;
-                //raidBossCaster.IsSkill1Running = true; // Need Fix 
+                raidBossCaster.IsSkill1Running = true; // Need Fix 
                 raidBossCaster.UnitViewer.UnitAnimator.SetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Run], false);
-                //raidBossCaster.UnitViewer.UnitAnimator.SetBool(skillParameterHash, true);
-                SetBoolSkillParameter(raidBossCaster, true);
+                raidBossCaster.UnitViewer.UnitAnimator.SetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Skill1], true);
                 Debug.Log($" {raidBossCaster.gameObject.name} 스킬 시전");
                 raidBossCaster.CoolTimeCounter = Cooltime;
                 raidBossCaster.IsSkillRunning = true;
@@ -192,8 +191,8 @@ public class BossLaserSkill : Skill
                 if (stateInfo.normalizedTime >= 1.0f)
                 {
                     raidBossCaster.CurSkillState = SkillState.None;
-                    //raidBossCaster.UnitViewer.UnitAnimator.SetBool(skillParameterHash, false);
-                    SetBoolSkillParameter(raidBossCaster, false);
+                    raidBossCaster.UnitViewer.UnitAnimator.SetBool(raidBossCaster.UnitViewer.ParameterHash[(int)Parameter.Skill1],
+                        false);
                     raidBossCaster.IsSkillRunning = false;
                     Debug.Log("스킬 완료");
                     if (raidBossCaster.LaserObejct != null)
@@ -202,7 +201,7 @@ public class BossLaserSkill : Skill
                     }
 
                     //raidBossCaster.CurSkill = null;
-                    //raidBossCaster.IsSkill1Running = false; // Need Fix 
+                    raidBossCaster.IsSkill1Running = false; // Need Fix 
                     return BaseNode.ENodeState.Success;
                 }
                 // 스킬 회수중
