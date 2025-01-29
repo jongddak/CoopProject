@@ -43,13 +43,13 @@ public class BattlePanelView : UIBInder
         }
         
         BattleSceneManager.Instance.isGamePaused = !BattleSceneManager.Instance.isGamePaused;
-        GetUI<TMP_Text>("PauseText").text = BattleSceneManager.Instance.isGamePaused ? " Pause : ON" : "Pause : OFF";
+        GetUI<TMP_Text>("PauseText").text = BattleSceneManager.Instance.isGamePaused ? "Pause\nON" : "Pause\nOFF";
     }
     
     public void ToggleAuto()
     {
         BattleSceneManager.Instance.isAutoOn = !BattleSceneManager.Instance.isAutoOn;
-        GetUI<TMP_Text>("AutoText").text = BattleSceneManager.Instance.isAutoOn ? " Auto : ON" : "Auto : OFF";
+        GetUI<TMP_Text>("AutoText").text = BattleSceneManager.Instance.isAutoOn ? "Auto\nON" : "Auto\nOFF";
     }
 
     private void InstantiateHPBars()
